@@ -1,0 +1,101 @@
+#chessboard {
+    width: 480px;
+    height: 480px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    border: 3px solid var(--dark-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.light {
+    background-color: #f0d9b5;
+}
+
+.dark {
+    background-color: #b58863;
+}
+
+.square.selected {
+    background-color: rgba(106, 159, 181, 0.5);
+}
+
+.square.highlight {
+    position: relative;
+}
+
+.square.highlight::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(106, 159, 181, 0.5);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.square.last-move {
+    background-color: rgba(255, 255, 0, 0.3);
+}
+
+.chess-piece {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chess-piece:hover {
+    transform: scale(1.1);
+}
+
+/* 棋子样式 */
+.piece-wP { background-image: url('../images/wP.svg'); }
+.piece-wR { background-image: url('../images/wR.svg'); }
+.piece-wN { background-image: url('../images/wN.svg'); }
+.piece-wB { background-image: url('../images/wB.svg'); }
+.piece-wQ { background-image: url('../images/wQ.svg'); }
+.piece-wK { background-image: url('../images/wK.svg'); }
+
+.piece-bP { background-image: url('../images/bP.svg'); }
+.piece-bR { background-image: url('../images/bR.svg'); }
+.piece-bN { background-image: url('../images/bN.svg'); }
+.piece-bB { background-image: url('../images/bB.svg'); }
+.piece-bQ { background-image: url('../images/bQ.svg'); }
+.piece-bK { background-image: url('../images/bK.svg'); }
+
+/* 升变棋子样式 */
+.promotion-pieces .queen.piece { background-image: url('../images/wQ.svg'); }
+.promotion-pieces .rook.piece { background-image: url('../images/wR.svg'); }
+.promotion-pieces .bishop.piece { background-image: url('../images/wB.svg'); }
+.promotion-pieces .knight.piece { background-image: url('../images/wN.svg'); }
+
+@media (max-width: 768px) {
+    #chessboard {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .square {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .chess-piece {
+        width: 35px;
+        height: 35px;
+    }
+} 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国际象棋 - 双人对战与人机对战</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chessboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>国际象棋</h1>
+            <div class="mode-selection">
+                <button id="two-player-mode" class="active">双人对战</button>
+                <button id="ai-mode">人机对战</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="game-container">
+                <div class="board-container">
+                    <div id="chessboard"></div>
+                    <div class="board-labels">
+                        <div class="file-labels">
+                            <span>a</span><span>b</span><span>c</span><span>d</span>
+                            <span>e</span><span>f</span><span>g</span><span>h</span>
+                        </div>
+                        <div class="rank-labels">
+                            <span>8</span><span>7</span><span>6</span><span>5</span>
+                            <span>4</span><span>3</span><span>2</span><span>1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <div id="status">白方走棋</div>
+                    <div class="captured-pieces">
+                        <div class="white-captured">白方吃子：</div>
+                        <div class="black-captured">黑方吃子：</div>
+                    </div>
+                    <div class="move-history">
+                        <h3>走棋记录</h3>
+                        <div id="moves"></div>
+                    </div>
+                    <div class="controls">
+                        <button id="new-game">新游戏</button>
+                        <button id="undo-move">悔棋</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="promotion-modal" class="modal">
+            <div class="modal-content">
+                <h2>请选择升变的棋子</h2>
+                <div class="promotion-pieces">
+                    <div class="piece queen" data-piece="queen"></div>
+                    <div class="piece rook" data-piece="rook"></div>
+                    <div class="piece bishop" data-piece="bishop"></div>
+                    <div class="piece knight" data-piece="knight"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-over-modal" class="modal">
+            <div class="modal-content">
+                <h2 id="game-result"></h2>
+                <button id="play-again">再来一局</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>国际象棋游戏 &copy; 2023 | <a href="https://github.com/yourusername/chess-game" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="js/chess.js"></script>
+    <script src="js/chessboard.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
