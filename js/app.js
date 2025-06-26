@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 处理棋子点击事件
      */
+    /**
+     * 处理棋子点击事件
+     */
     function handlePieceClick(row, col, piece) {
         // 如果AI正在思考，不允许操作
         if (isAIThinking) return;
@@ -49,7 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (gameMode === 'ai' && engine.currentPlayer === 'b') return;
         
         // 检查是否是当前玩家的棋子
-        if (engine.getPieceColor(piece) !== engine.currentPlayer) return;
+        const pieceColor = engine.getPieceColor(piece);
+        if (pieceColor !== engine.currentPlayer) {
+            // 如果已经选中了我方棋子，并且点击的是对方棋子，尝试吃子
+            if (selectedPiece) {
+                const [fromRow, fromCol] = selectedPiece;
+                if (engine.isValidMove(fromRow, fromCol, row, col)) {
+                    executeMove(fromRow, fromCol, row, col);
+                    return;
+                }
+            }
+            return;
+        }
         
         // 选择棋子
         selectedPiece = [row, col];
@@ -62,6 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         chessboard.highlightLegalMoves(legalMoves);
     }
     
+    /**
+     * 处理方格点击事件
+     */
     /**
      * 处理方格点击事件
      */
@@ -83,8 +100,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // 获取目标位置的棋子
+        const targetPiece = engine.getPiece(row, col);
+        
         // 检查移动是否合法
         if (!isMoveLegal(row, col)) {
+            // 如果移动不合法，但目标位置有对方的棋子，可能是想吃子
+            if (targetPiece && engine.getPieceColor(targetPiece) !== engine.currentPlayer) {
+                const [fromRow, fromCol] = selectedPiece;
+                if (engine.isValidMove(fromRow, fromCol, row, col)) {
+                    executeMove(fromRow, fromCol, row, col);
+                }
+            }
             return;
         }
         
@@ -544,4 +571,4 @@ function getChessPieceSVG(color, type) {
 }
 
 // 执行加载棋子图像的函数
-// loadChessPieceImages(); 
+// loadChessPieceImages();

@@ -117,6 +117,7 @@ class ChessboardUI {
     }
 
     // 处理方格点击事件
+    // 处理方格点击事件
     handleSquareClick(event, row, col) {
         // 转换为实际坐标（考虑棋盘翻转）
         const actualRow = this.flipped ? 7 - row : row;
@@ -134,8 +135,17 @@ class ChessboardUI {
             
             // 尝试移动
             if (this.options.onMove) {
+                // 获取目标方格的棋子元素
+                const targetSquare = this.getSquareElement(row, col);
+                const targetPiece = targetSquare ? targetSquare.querySelector('.chess-piece') : null;
+                
                 const success = this.options.onMove(selectedRow, selectedCol, actualRow, actualCol);
                 if (success) {
+                    // 如果目标位置有棋子，先移除它
+                    if (targetPiece) {
+                        targetSquare.removeChild(targetPiece);
+                    }
+                    
                     // 移动成功后清除选择
                     this.clearSelection();
                     return;
@@ -361,4 +371,4 @@ class ChessboardUI {
 // 导出类使其可以被其他模块使用
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ChessboardUI;
-} 
+}
